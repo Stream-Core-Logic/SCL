@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Security Header -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com; connect-src https://formspree.io;">
+    
+    <title>StreamCore | Custom RTL & FPGA Design Services</title>
+    <meta name="description" content="StreamCore provides custom VLSI design services, RTL-to-FPGA implementation, and academic mentorship for MTech/BTech projects.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Framework) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#070a10',
+                            card: '#0d121b',
+                            border: '#1c2432',
+                            blue: '#2bb0f0',
+                            blueglow: 'rgba(43,176,240,0.15)',
+                            textMain: '#edf1f7',
+                            textMuted: '#97a2b8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS for glowing effects and utilities -->
+    <style>
+        body { background-color: #070a10; color: #edf1f7; overflow-x: hidden; }
+        .glass-nav { background: rgba(7, 10, 16, 0.7); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-bottom: 1px solid #1c2432; }
+        .glow-border { position: relative; }
+        .glow-border::before {
+            content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px;
+            background: linear-gradient(45deg, transparent, rgba(43,176,240,0.3), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .bg-mesh {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            background-image: radial-gradient(circle at 15% 50%, rgba(43,176,240,0.06), transparent 40%),
+                              radial-gradient(circle at 85% 10%, rgba(22,41,79,0.2), transparent 50%);
+        }
+        /* Hide elements initially for GSAP to reveal them */
+        .gsap-reveal { opacity: 0; transform: translateY(30px); }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-blue selection:text-white">
+    
+    <div class="bg-mesh"></div>
+
+    <!-- Navigation -->
+    <header class="fixed w-full top-0 z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#top" class="font-display text-2xl font-bold tracking-tight">
+                Stream<span class="text-brand-blue">Core</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8 font-mono text-sm text-brand-textMuted">
+                <a href="#process" class="hover:text-brand-textMain transition-colors">How it Works</a>
+                <a href="#capabilities" class="hover:text-brand-textMain transition-colors">Capabilities</a>
+                <a href="#portfolio" class="hover:text-brand-textMain transition-colors">Selected Work</a>
+                <a href="#mentorship" class="hover:text-brand-textMain transition-colors">Mentorship</a>
+                <a href="#contact" class="bg-brand-blue text-brand-dark px-5 py-2.5 rounded hover:bg-white transition-all font-medium">Get a Quote</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-brand-textMain focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+        
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-brand-border px-6 py-4 flex flex-col gap-4 font-mono text-sm">
+            <a href="#process" class="mobile-link text-brand-textMuted hover:text-brand-blue">How it Works</a>
+            <a href="#portfolio" class="mobile-link text-brand-textMuted hover:text-brand-blue">Selected Work</a>
+            <a href="#mentorship" class="mobile-link text-brand-textMuted hover:text-brand-blue">Mentorship</a>
+            <a href="#contact" class="mobile-link text-brand-blue font-bold">Get a Quote</a>
+        </div>
+    </header>
+
+    <main id="top" class="pt-32">
+        <!-- HERO SECTION -->
+        <section class="max-w-7xl mx-auto px-6 py-20 lg:py-32">
+            <div class="font-mono text-brand-blue text-xs tracking-[0.2em] uppercase mb-6 flex items-center gap-4 hero-elem">
+                <span class="w-8 h-[1px] bg-brand-blue"></span> RTL & FPGA DESIGN SERVICES
+            </div>
+            <h1 class="font-display text-5xl md:text-7xl font-bold leading-[1.1] mb-8 max-w-4xl hero-elem">
+                High-Performance <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue to-cyan-300">RTL & DSP</span> Development
+            </h1>
+            <p class="text-brand-textMuted text-lg md:text-xl max-w-2xl mb-12 leading-relaxed hero-elem">
+                Custom RTL design, FPGA implementation, and verification — built to your spec, from algorithm to silicon-ready code.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 hero-elem">
+                <a href="#portfolio" class="bg-brand-blue text-brand-dark font-mono font-medium text-sm px-8 py-4 rounded hover:bg-white transition-all text-center">View Selected Work</a>
+                <a href="#contact" class="border border-brand-border text-brand-textMain font-mono font-medium text-sm px-8 py-4 rounded hover:border-brand-blue hover:bg-brand-blueglow transition-all text-center">Start a Project</a>
+            </div>
+        </section>
+
+        <!-- PROCESS SECTION -->
+        <section id="process" class="border-t border-brand-border py-24">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="mb-16 gsap-reveal">
+                    <span class="font-mono text-brand-blue text-xs tracking-widest uppercase">Process</span>
+                    <h2 class="font-display text-3xl md:text-4xl font-semibold mt-3">How we work together</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Cards -->
+                    <div class="bg-brand-card border border-brand-border p-8 rounded-lg glow-border gsap-reveal">
+                        <span class="font-mono text-brand-blue text-xs mb-4 block">STEP 01</span>
+                        <h3 class="font-display text-xl font-medium mb-3">Share Requirements</h3>
+                        <p class="text-brand-textMuted text-sm leading-relaxed">Send a brief description of your algorithm, target device, and timeline via the secure contact form.</p>
+                    </div>
+                    <div class="bg-brand-card border border-brand-border p-8 rounded-lg glow-border gsap-reveal" style="transition-delay: 100ms;">
+                        <span class="font-mono text-brand-blue text-xs mb-4 block">STEP 02</span>
+                        <h3 class="font-display text-xl font-medium mb-3">Get a Scoped Quote</h3>
+                        <p class="text-brand-textMuted text-sm leading-relaxed">Receive a detailed technical proposal, precise pricing, and a clear delivery schedule.</p>
+                    </div>
+                    <div class="bg-brand-card border border-brand-border p-8 rounded-lg glow-border gsap-reveal" style="transition-delay: 200ms;">
+                        <span class="font-mono text-brand-blue text-xs mb-4 block">STEP 03</span>
+                        <h3 class="font-display text-xl font-medium mb-3">Receive RTL & Docs</h3>
+                        <p class="text-brand-textMuted text-sm leading-relaxed">Final delivery includes synthesizable code, self-checking testbenches, and integration documentation.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MENTORSHIP SECTION (B2C Focus) -->
+        <section id="mentorship" class="border-t border-brand-border py-24 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="mb-12 gsap-reveal">
+                    <span class="font-mono text-brand-blue text-xs tracking-widest uppercase">Academic & Research</span>
+                    <h2 class="font-display text-3xl md:text-4xl font-semibold mt-3">MTech & BTech Mentorship</h2>
+                </div>
+                
+                <div class="bg-gradient-to-br from-brand-card to-brand-dark border border-brand-blue/30 p-8 md:p-12 rounded-xl glow-border gsap-reveal">
+                    <h3 class="font-display text-2xl text-brand-blue mb-4">End-to-End Project Execution</h3>
+                    <p class="text-lg text-brand-textMain max-w-3xl mb-8 leading-relaxed">
+                        I build custom IEEE base-paper implementations and complex RTL designs specifically for academic requirements. You don't just get the code; you get the deep technical explanation required to defend your work in a viva.
+                    </p>
+                    <div class="flex flex-wrap gap-3 mb-8">
+                        <span class="bg-brand-blueglow border border-brand-blue/40 px-4 py-2 rounded text-xs font-mono">Synthesizable RTL</span>
+                        <span class="bg-brand-blueglow border border-brand-blue/40 px-4 py-2 rounded text-xs font-mono">Testbenches</span>
+                        <span class="bg-brand-blueglow border border-brand-blue/40 px-4 py-2 rounded text-xs font-mono">Waveform Proofs</span>
+                        <span class="bg-brand-blueglow border border-brand-blue/40 px-4 py-2 rounded text-xs font-mono">Architecture Docs</span>
+                        <span class="bg-brand-blueglow border border-brand-blue/40 px-4 py-2 rounded text-xs font-mono">Presentation PPTs</span>
+                    </div>
+                    <p class="font-mono text-brand-textMuted text-sm">
+                        <span class="text-brand-textMain">Pricing:</span> Projects starting from ₹15,000 (Based on complexity)
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="border-t border-brand-border py-24">
+            <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="gsap-reveal">
+                    <span class="font-mono text-brand-blue text-xs tracking-widest uppercase">Contact</span>
+                    <h2 class="font-display text-3xl md:text-4xl font-semibold mt-3 mb-6">Start a Project</h2>
+                    <p class="text-brand-textMuted mb-8 leading-relaxed">
+                        When you work with StreamCore, you are speaking directly to the RTL engineer building your system. No account managers, no communication delays.
+                    </p>
+                    <div class="font-mono text-sm space-y-4">
+                        <p><span class="text-brand-textMuted">EMAIL:</span> <a href="mailto:streamcore.ip@gmail.com" class="text-brand-blue hover:underline">streamcore.ip@gmail.com</a></p>
+                        <p><span class="text-brand-textMuted">RESPONSE:</span> Within 24 hours</p>
+                    </div>
+                </div>
+
+                <div class="bg-brand-card border border-brand-border p-8 rounded-lg gsap-reveal">
+                    <form id="contactForm" class="space-y-6">
+                        <!-- Honeypot -->
+                        <div style="position:absolute; left:-9999px;">
+                            <label for="website">Leave empty</label>
+                            <input type="text" id="website" name="website" tabindex="-1">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block font-mono text-xs text-brand-textMuted mb-2 uppercase">Name</label>
+                                <input type="text" id="name" required class="w-full bg-brand-dark border border-brand-border rounded px-4 py-3 text-sm focus:outline-none focus:border-brand-blue transition-colors">
+                            </div>
+                            <div>
+                                <label class="block font-mono text-xs text-brand-textMuted mb-2 uppercase">Email</label>
+                                <input type="email" id="email" required class="w-full bg-brand-dark border border-brand-border rounded px-4 py-3 text-sm focus:outline-none focus:border-brand-blue transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-mono text-xs text-brand-textMuted mb-2 uppercase">Project Type</label>
+                            <input type="text" id="projectType" placeholder="e.g. FPGA Prototype, MTech Project..." class="w-full bg-brand-dark border border-brand-border rounded px-4 py-3 text-sm focus:outline-none focus:border-brand-blue transition-colors">
+                        </div>
+
+                        <div>
+                            <label class="block font-mono text-xs text-brand-textMuted mb-2 uppercase">Message</label>
+                            <textarea id="message" required rows="4" placeholder="Describe your algorithm or base paper..." class="w-full bg-brand-dark border border-brand-border rounded px-4 py-3 text-sm focus:outline-none focus:border-brand-blue transition-colors"></textarea>
+                        </div>
+
+                        <button type="submit" id="submitBtn" class="w-full bg-brand-blue text-brand-dark font-mono font-medium py-3 rounded hover:bg-white transition-colors">
+                            Send Message
+                        </button>
+                        <div id="formStatus" class="hidden mt-4 text-sm font-mono p-3 rounded text-center"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-brand-border bg-brand-card py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <div class="font-display text-xl font-bold tracking-tight">Stream<span class="text-brand-blue">Core</span></div>
+                <p class="text-brand-textMuted text-xs mt-2 font-mono">Independent VLSI Consulting & Mentorship</p>
+            </div>
+            <p class="text-brand-textMuted text-xs font-mono text-center md:text-right">
+                © <script>document.write(new Date().getFullYear())</script> StreamCore. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- GSAP Animations & Logic Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <script>
+        // 1. Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+        
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+        links.forEach(link => {
+            link.addEventListener('click', () => menu.classList.add('hidden'));
+        });
+
+        // 2. High-End GSAP Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Load Animation (Staggered fade up)
+        gsap.fromTo(".hero-elem", 
+            { opacity: 0, y: 40 }, 
+            { opacity: 1, y: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2 }
+        );
+
+        // Scroll Reveal Animations
+        const revealElements = document.querySelectorAll(".gsap-reveal");
+        revealElements.forEach((el) => {
+            gsap.to(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%", // Triggers when top of element hits 85% of viewport
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+
+        // 3. Formspree Integration Logic
+        const FORM_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID"; // REMEMBER TO PASTE YOUR ID HERE
+        const form = document.getElementById('contactForm');
+        const statusBox = document.getElementById('formStatus');
+        const submitBtn = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if(document.getElementById('website').value !== '') return; // Honeypot trap
+
+            if(FORM_ENDPOINT.includes('YOUR_FORM_ID')){
+                statusBox.textContent = "Error: Please add your Formspree ID to the code.";
+                statusBox.className = 'block mt-4 text-sm font-mono p-3 rounded text-center bg-red-900/30 text-red-400 border border-red-800';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Transmitting...';
+
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                projectType: document.getElementById('projectType').value,
+                message: document.getElementById('message').value
+            };
+
+            try {
+                const res = await fetch(FORM_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if(res.ok){
+                    statusBox.textContent = "Message secured. I will reply within 24 hours.";
+                    statusBox.className = 'block mt-4 text-sm font-mono p-3 rounded text-center bg-brand-blueglow text-brand-blue border border-brand-blue/30';
+                    form.reset();
+                } else throw new Error();
+            } catch(err) {
+                statusBox.textContent = "Network error. Please email streamcore.ip@gmail.com directly.";
+                statusBox.className = 'block mt-4 text-sm font-mono p-3 rounded text-center bg-red-900/30 text-red-400 border border-red-800';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        });
+    </script>
+</body>
+</html>
